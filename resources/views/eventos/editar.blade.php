@@ -79,7 +79,7 @@
                             <div class="col-md-6">
                             <select id="frequencia" type="text" class="form-control @error('frequencia') is-invalid @enderror" name="frequencia" required>
                                     @foreach($frequencia as $item)
-                                    <option value="{{ $item }}" {{ $item == data->frequencia ? 'selected' : ''}}>{{ $item}}</option>
+                                    <option value="{{ $item }}" {{ $item == $data->frequencia ? 'selected' : ''}}>{{ $item}}</option>
                                     @endforeach
                                 </select>
                                 @error('frequencia')

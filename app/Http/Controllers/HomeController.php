@@ -33,7 +33,7 @@ class HomeController extends Controller
     public function index()
     {
         $usersCount = $this->user->count();
-        $eventosCount = $this->eventos->count();
+        $eventosCount = $this->eventos->where('status', 1)->count();
         $eventosToday = $this->eventos->whereDate('created_at', Carbon::today())->count();
         $usuariosAtivos = $this->user->whereDate('ultimo_login',Carbon::today())->count();
         $data = compact('eventosCount', 'usersCount', 'eventosToday', 'usuariosAtivos');

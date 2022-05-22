@@ -23,7 +23,8 @@ class EventosModel extends Model
         'status',
         'responsavel',
         'status_evento',
-        'regras'
+        'regras',
+        'finalizado_at'
     ];
 
 
@@ -42,7 +43,7 @@ class EventosModel extends Model
         return $this
             ->select('cidade_real_eventos.id', 'titulo', 'proximo_evento', 'users.name', 'status_evento')
             ->where('status', 1)
-            ->orderBy('status', 'desc')
+            ->orderBy('status_evento', 'desc')
             ->join('users', 'users.id', '=', 'responsavel')
             ->get();
     }
@@ -66,17 +67,15 @@ class EventosModel extends Model
     public function buscaDados()
     {
 
-        $dates = collect();
-        foreach (range(-30, 0) as $i) {
-            $date = Carbon::now()->addDays($i)->format('Y-m-d');
-            $dates->put($date, 0);
-        }
-        $querie =  $this->where('updated_at', '>=', $dates->keys()->first())
-        ->where('status', 'FINALIZADO')
+        $querie =  $this
+            ->whereYear('created_at', '=', Carbon::now()->format('Y'))
+            ->whereMonth('created_at', '=', Carbon::today()->format('m'))
+            ->where('status_evento', 'FINALIZADO')
+            ->where('status', 1)
             ->groupBy('date')
             ->orderBy('date')
             ->get([
-                DB::raw('DATE_FORMAT(updated_at, "%d/%m") as date'),
+                DB::raw('DATE_FORMAT(created_at, "%d/%m") as date'),
                 DB::raw('COUNT( * ) as "count"')
             ])
             ->pluck('count', 'date');

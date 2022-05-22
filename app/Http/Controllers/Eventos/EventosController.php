@@ -51,8 +51,21 @@ class EventosController extends Controller
     {
         $data = $request->validated();
         $create = $this->eventos->create($data);
+        if ($data['status_evento'] == 'FINALIZADO') $data['finalizado_at'] = now();
         if (empty($create)) return redirect()->back();
         return redirect()->route('eventos.listar');
+    }
+
+    public function editar(EditarEvento $request, $id)
+    {
+        $data = $request->validated();
+        if ($data['status_evento'] == 'FINALIZADO') $data['finalizado_at'] = now();
+
+        $update = $this->eventos->where('id', $id)->update($data);
+        if ($update) {
+            return redirect()->route('eventos.listar');
+        }
+        return redirect()->back();
     }
 
     public function deletarEvento(Request $request, $id)
@@ -80,19 +93,8 @@ class EventosController extends Controller
         return ['EM DISCUSSÃO', 'PLANEJAMENTO', 'PLANEJADO', 'FINALIZADO', 'CANCELADO'];
     }
 
-    public function editar(EditarEvento $request, $id)
-    {
-        $data = $request->validated();
-        $update = $this->eventos->where('id', $id)->update($data);
-        if ($update) {
-            return redirect()->route('eventos.listar');
-        }
-        return redirect()->back();
-    }
-
     public function buscaDados()
     {
-
         return $this->eventos->buscaDados();
     }
 }
