@@ -24,7 +24,12 @@ class EventosController extends Controller
     public function listar(Request $request)
     {
         $data = $this->eventos->getAll();
-        return view('eventos.listar', compact('data'));
+        $headers = ['Título', 'Data/Hora', 'Responsável', 'Status'];
+        $campos = ['titulo', 'proximo_evento', 'name', 'status_evento'];
+        $routeEditar = "eventos.ver.editar";
+        $routeVer = "eventos.ver";
+        $routeRemover = "eventos.remover";
+        return view('eventos.listar', compact('data', 'headers', 'campos', 'routeEditar', 'routeVer', 'routeRemover'));
     }
 
     public function verEvento(Request $request, $id)
@@ -38,7 +43,8 @@ class EventosController extends Controller
     {
         $users = $this->users->get();
         $status = $this->statusEventos();
-        return view('eventos.criar', compact('users', 'status'));
+        $frequencia = $this->frequenciasEvento();
+        return view('eventos.criar', compact('users', 'status', 'frequencia'));
     }
 
     public function criar(AdicionarEvento $request)
@@ -60,7 +66,13 @@ class EventosController extends Controller
         $users = $this->users->get();
         $data = $this->eventos->getForEdit($id);
         $status = $this->statusEventos();
-        return view('eventos.editar', compact('data', 'users', 'status'));
+        $frequencia = $this->frequenciasEvento();
+        return view('eventos.editar', compact('data', 'users', 'status', 'frequencia'));
+    }
+
+    private function frequenciasEvento()
+    {
+        return ['EVENTO ÚNICO', 'TODO DIA', 'TODA SEMANA', 'TODO MÊS'];
     }
 
     private function statusEventos()
@@ -76,5 +88,11 @@ class EventosController extends Controller
             return redirect()->route('eventos.listar');
         }
         return redirect()->back();
+    }
+
+    public function buscaDados()
+    {
+
+        return $this->eventos->buscaDados();
     }
 }

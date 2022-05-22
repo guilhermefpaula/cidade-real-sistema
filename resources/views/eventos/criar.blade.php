@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="proximo_evento" class="col-md-4 col-form-label text-md-end">{{ __('Próximo evento') }}</label>
+                            <label for="proximo_evento" class="col-md-4 col-form-label text-md-end">{{ __('Data/Hora') }}</label>
                             <div class="col-md-6">
                                 <input id="proximo_evento" type="text" class="form-control @error('proximo_evento') is-invalid @enderror" name="proximo_evento" value="{{ old('proximo_evento') }}" required autocomplete="proximo_evento" autofocus>
                                 @error('proximo_evento')
@@ -73,7 +73,11 @@
                         <div class="row mb-3">
                             <label for="frequencia" class="col-md-4 col-form-label text-md-end">{{ __('Frequencia') }}</label>
                             <div class="col-md-6">
-                                <input id="frequencia" type="text" class="form-control @error('frequencia') is-invalid @enderror" name="frequencia" value="{{ old('frequencia') }}" required autocomplete="frequencia">
+                                <select id="frequencia" type="text" class="form-control @error('frequencia') is-invalid @enderror" name="frequencia" required>
+                                    @foreach($frequencia as $item)
+                                    <option value="{{ $item }}" {{ $item == old('frequencia') ? 'selected' : ''}}>{{ $item}}</option>
+                                    @endforeach
+                                </select>
                                 @error('frequencia')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -23,7 +23,10 @@ class UsersController extends Controller
     public function listar(Request $request)
     {
         $data = $this->user->orderBy('name', 'asc')->get();
-        return view('usuarios.listar', compact('data'));
+        $headers = ["Nome","Ultimo Acesso"];
+        $campos = ["name","ultimo_login"];
+        $routeEditar = "usuarios.ver.editar";
+        return view('usuarios.listar', compact('data', 'headers', 'campos', 'routeEditar'));
     }
 
     public function verUsuario(Request $request, $id)

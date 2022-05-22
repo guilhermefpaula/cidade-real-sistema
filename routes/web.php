@@ -27,12 +27,16 @@ Route::get('/usuario/editar/{id}', [$usuarios, 'verUsuario'])->name('usuarios.ve
 Route::put('/usuario/editar/{id}', [$usuarios, 'editar'])->name('usuarios.editar');
 Route::post('/usuario/criar', [$usuarios, 'criar'])->name('usuarios.criar');
 
+Route::get('/teste',function(){
+return view('teste');
+});
 #eventos
 $eventos = App\Http\Controllers\Eventos\EventosController::class;
 Route::get('/eventos', [$eventos, 'listar'])->name('eventos.listar');
 Route::get('/eventos/criar', [$eventos, 'verCriar'])->name('eventos.ver.criar');
 Route::post('/eventos/criar', [$eventos, 'criar'])->name('eventos.criar');
-Route::get('/evento/{id}', [$eventos, 'verEvento'])->name('eventos.ver');
+Route::get('/evento/ver/{id}', [$eventos, 'verEvento'])->name('eventos.ver');
 Route::get('/evento/remover/{id}', [$eventos, 'deletarEvento'])->name('eventos.remover');
 Route::get('/evento/editar/{id}', [$eventos, 'verEditar'])->name('eventos.ver.editar');
 Route::put('/evento/editar/{id}', [$eventos, 'editar'])->name('eventos.editar');
+Route::get('/evento/dados', [$eventos, 'buscaDados'])->name('eventos.buscar.dados.ajax');

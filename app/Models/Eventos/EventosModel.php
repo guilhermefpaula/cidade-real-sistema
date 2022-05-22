@@ -4,6 +4,7 @@ namespace App\Models\Eventos;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EventosModel extends Model
 {
@@ -41,7 +42,7 @@ class EventosModel extends Model
         return $this
             ->select('cidade_real_eventos.id', 'titulo', 'proximo_evento', 'users.name', 'status_evento')
             ->where('status', 1)
-            ->orderBy('titulo', 'asc')
+            ->orderBy('status', 'desc')
             ->join('users', 'users.id', '=', 'responsavel')
             ->get();
     }
@@ -55,9 +56,31 @@ class EventosModel extends Model
             ->first();
     }
 
-    public function getForEdit($id) {
+    public function getForEdit($id)
+    {
         return $this
-        ->where('cidade_real_eventos.id', $id)
-        ->first(); 
+            ->where('cidade_real_eventos.id', $id)
+            ->first();
+    }
+
+    public function buscaDados()
+    {
+
+        $dates = collect();
+        foreach (range(-30, 0) as $i) {
+            $date = Carbon::now()->addDays($i)->format('Y-m-d');
+            $dates->put($date, 0);
+        }
+        $querie =  $this->where('updated_at', '>=', $dates->keys()->first())
+        ->where('status', 'FINALIZADO')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get([
+                DB::raw('DATE_FORMAT(updated_at, "%d/%m") as date'),
+                DB::raw('COUNT( * ) as "count"')
+            ])
+            ->pluck('count', 'date');
+
+        return $querie;
     }
 }
