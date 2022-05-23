@@ -412,6 +412,10 @@
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
     $(document).ready(function() {
+        $.ajax({
+            url: 'https://servers-live.fivem.net/api/servers/single/"real.santagroup.gg"',
+            method: 'get',
+        }).done((response) => console.log(response))
         buscaDadosEventos();
     })
 
@@ -425,7 +429,6 @@
     }
 
     function makeChartEventos(response) {
-        console.log(response)
         arrayLabels = [];
         arrayValues = [];
         $.each(response, function(index, value) {
