@@ -36,7 +36,8 @@ class HomeController extends Controller
         $eventosCount = $this->eventos->where('status', 1)->count();
         $eventosToday = $this->eventos->whereDate('created_at', Carbon::today())->count();
         $usuariosAtivos = $this->user->whereDate('ultimo_login',Carbon::today())->count();
-        $data = compact('eventosCount', 'usersCount', 'eventosToday', 'usuariosAtivos');
+        $eventosDoMes = $this->eventos->getCountEventosDoMes();
+        $data = compact('eventosCount', 'usersCount', 'eventosToday', 'usuariosAtivos', 'eventosDoMes');
         return view('home', compact('data'));
     }
 }

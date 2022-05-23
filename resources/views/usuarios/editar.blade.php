@@ -36,6 +36,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="cargo_staff" class="col-md-4 col-form-label text-md-end">{{ __('Cargo') }}</label>
+                            <div class="col-md-6">
+                                <select id="cargo_staff" type="cargo_staff" class="form-control @error('cargo_staff') is-invalid @enderror" name="cargo_staff" required>
+                                    <option value="">{{ __('Selecione')}}</option>
+                                    @foreach($cargos as $cargo)
+                                    <option value="{{ $cargo->id}}" {{ $cargo->id == $user->cargo_staff ? 'selected' : ''}}>{{ $cargo->cargo}}</option>
+                                    @endforeach
+                                </select>
+                                @error('cargo_staff')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

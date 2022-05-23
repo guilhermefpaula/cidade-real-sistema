@@ -66,7 +66,6 @@ class EventosModel extends Model
 
     public function buscaDados()
     {
-
         $querie =  $this
             ->whereYear('created_at', '=', Carbon::now()->format('Y'))
             ->whereMonth('created_at', '=', Carbon::today()->format('m'))
@@ -79,6 +78,17 @@ class EventosModel extends Model
                 DB::raw('COUNT( * ) as "count"')
             ])
             ->pluck('count', 'date');
+
+        return $querie;
+    }
+    public function getCountEventosDoMes()
+    {
+        $querie =  $this
+            ->whereYear('created_at', '=', Carbon::now()->format('Y'))
+            ->whereMonth('created_at', '=', Carbon::today()->format('m'))
+            ->where('status_evento', 'FINALIZADO')
+            ->where('status', 1)
+            ->count();
 
         return $querie;
     }

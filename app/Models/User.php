@@ -26,6 +26,7 @@ class User extends Authenticatable
         'id_jogo',
         'cargo_jogo',
         'ultimo_login',
+        'cargo_staff'
     ];
 
     /**
@@ -47,11 +48,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getAll()
+    {
+        return $this->select('users.id', 'name', 'ultimo_login', 'cargo')->leftJoin('users_cargos_staff', 'users_cargos_staff.id', '=', 'users.cargo_staff')->orderBy('name', 'asc')->get();
+    }
+
     public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');
     }
-    
+
     public function getUpdatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');

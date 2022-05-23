@@ -49,12 +49,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="mb-0 ">Eventos Finalizados</h6>
-                    <p class="text-sm ">*valores deste mês</p>
+                    <h6 class="mb-0 ">Eventos Finalizados - {{ $data['eventosDoMes']}}</h6>
+                    <p class="text-sm ">*Eeste mês</p>
                     <hr class="dark horizontal">
                     <div class="d-flex ">
                         <i class="material-icons text-sm my-auto me-1">schedule</i>
-                        <p class="mb-0 text-sm"> total de eventos finalizados ao longo do mês </p>
+                        <p class="mb-0 text-sm"> Total de eventos finalizados ao longo do mês </p>
                     </div>
                 </div>
             </div>
@@ -411,13 +411,6 @@
 @section('scripts')
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
-    $(document).ready(function() {
-        $.ajax({
-            url: 'https://servers-live.fivem.net/api/servers/single/"real.santagroup.gg"',
-            method: 'get',
-        }).done((response) => console.log(response))
-        buscaDadosEventos();
-    })
 
     function buscaDadosEventos() {
         $.ajax({
