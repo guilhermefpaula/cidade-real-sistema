@@ -50,7 +50,7 @@
                 </div>
                 <div class="card-body">
                     <h6 class="mb-0 ">Eventos Finalizados - {{ $data['eventosDoMes']}}</h6>
-                    <p class="text-sm ">*Eeste mês</p>
+                    <p class="text-sm ">*Este mês</p>
                     <hr class="dark horizontal">
                     <div class="d-flex ">
                         <i class="material-icons text-sm my-auto me-1">schedule</i>

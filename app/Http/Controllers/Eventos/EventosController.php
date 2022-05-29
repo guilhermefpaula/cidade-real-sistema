@@ -77,13 +77,16 @@ class EventosController extends Controller
     {
         $data = $request->validated();
         if ($data['status_evento'] == 'FINALIZADO') {
-            $data['finalizado_at'] = now();
-            $message = "EVENTO:" . $data['titulo'] . "
-DIA:" . $data['proximo_evento'] . " 
-LINK DO EVENTO:" . route('eventos.ver', $id);
-            Http::post(env('DISCORD_EVENTOS_URL'), [
-                "content" => $message
-            ]);
+            $evento = $this->eventos->where('id', $id)->first()->finalizado_at;
+            if (empty($evento)) {
+                $data['finalizado_at'] = now();
+                $message = "EVENTO: " . $data['titulo'] . "
+                DIA: " . $data['proximo_evento'] . " 
+                LINK DO EVENTO: " . route('eventos.ver', $id);
+                Http::post(env('DISCORD_EVENTOS_URL'), [
+                    "content" => $message
+                ]);
+            }
         }
         $update = $this->eventos->where('id', $id)->update($data);
         if ($update) {

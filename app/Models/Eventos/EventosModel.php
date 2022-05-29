@@ -27,7 +27,6 @@ class EventosModel extends Model
         'finalizado_at'
     ];
 
-
     public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');
@@ -67,14 +66,14 @@ class EventosModel extends Model
     public function buscaDados()
     {
         $querie =  $this
-            ->whereYear('created_at', '=', Carbon::now()->format('Y'))
-            ->whereMonth('created_at', '=', Carbon::today()->format('m'))
+            ->whereYear('finalizado_at', '=', Carbon::now()->format('Y'))
+            ->whereMonth('finalizado_at', '=', Carbon::today()->format('m'))
             ->where('status_evento', 'FINALIZADO')
             ->where('status', 1)
             ->groupBy('date')
             ->orderBy('date')
             ->get([
-                DB::raw('DATE_FORMAT(created_at, "%d/%m") as date'),
+                DB::raw('DATE_FORMAT(finalizado_at, "%d/%m") as date'),
                 DB::raw('COUNT( * ) as "count"')
             ])
             ->pluck('count', 'date');
@@ -84,8 +83,8 @@ class EventosModel extends Model
     public function getCountEventosDoMes()
     {
         $querie =  $this
-            ->whereYear('created_at', '=', Carbon::now()->format('Y'))
-            ->whereMonth('created_at', '=', Carbon::today()->format('m'))
+            ->whereYear('finalizado_at', '=', Carbon::now()->format('Y'))
+            ->whereMonth('finalizado_at', '=', Carbon::today()->format('m'))
             ->where('status_evento', 'FINALIZADO')
             ->where('status', 1)
             ->count();
