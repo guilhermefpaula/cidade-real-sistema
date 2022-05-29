@@ -411,6 +411,9 @@
 @section('scripts')
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
+    $(document).ready(function() {
+        buscaDadosEventos()
+    })
 
     function buscaDadosEventos() {
         $.ajax({

@@ -8,6 +8,7 @@ use App\Http\Requests\Eventos\EditarEvento;
 use App\Models\Eventos\EventosModel;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
 class EventosController extends Controller
 {
@@ -56,21 +57,10 @@ class EventosController extends Controller
         return redirect()->route('eventos.listar');
     }
 
-    public function editar(EditarEvento $request, $id)
-    {
-        $data = $request->validated();
-        if ($data['status_evento'] == 'FINALIZADO') $data['finalizado_at'] = now();
-
-        $update = $this->eventos->where('id', $id)->update($data);
-        if ($update) {
-            return redirect()->route('eventos.listar');
-        }
-        return redirect()->back();
-    }
 
     public function deletarEvento(Request $request, $id)
     {
-        $delete = $this->eventos->where('id', $id)->update(['status' => 0]);
+        $this->eventos->where('id', $id)->update(['status' => 0]);
         return redirect()->route('eventos.listar');
     }
 
@@ -82,6 +72,26 @@ class EventosController extends Controller
         $frequencia = $this->frequenciasEvento();
         return view('eventos.editar', compact('data', 'users', 'status', 'frequencia'));
     }
+
+    public function editar(EditarEvento $request, $id)
+    {
+        $data = $request->validated();
+        if ($data['status_evento'] == 'FINALIZADO') {
+            $data['finalizado_at'] = now();
+            $message = "EVENTO:" . $data['titulo'] . "
+DIA:" . $data['proximo_evento'] . " 
+LINK DO EVENTO:" . route('eventos.ver', $id);
+            Http::post(env('DISCORD_EVENTOS_URL'), [
+                "content" => $message
+            ]);
+        }
+        $update = $this->eventos->where('id', $id)->update($data);
+        if ($update) {
+            return redirect()->route('eventos.listar');
+        }
+        return redirect()->back();
+    }
+
 
     private function frequenciasEvento()
     {
