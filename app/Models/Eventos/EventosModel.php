@@ -24,7 +24,9 @@ class EventosModel extends Model
         'responsavel',
         'status_evento',
         'regras',
-        'finalizado_at'
+        'finalizado_at',
+        'premio',
+        'vencedor',
     ];
 
     public function getCreatedAtAttribute($date)

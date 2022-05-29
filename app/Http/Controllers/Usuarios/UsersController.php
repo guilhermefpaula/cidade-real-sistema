@@ -7,6 +7,7 @@ use App\Http\Requests\User\AdicionaUser;
 use App\Http\Requests\User\EditarUser;
 use App\Models\CargosStaff;
 use App\Models\User;
+use App\Models\UsersPonto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,15 +16,20 @@ class UsersController extends Controller
 
     protected $user;
     protected $cargosStaff;
+    protected $usersPonto;
 
-    public function __construct(User $user, CargosStaff $cargosStaff)
-    {
+    public function __construct(
+        User $user,
+        CargosStaff $cargosStaff,
+        UsersPonto $usersPonto
+    ) {
         $this->middleware('auth');
         $this->user = $user;
         $this->cargosStaff = $cargosStaff;
+        $this->usersPonto = $usersPonto;
     }
 
-    public function listar(Request $request)
+    protected function listar(Request $request)
     {
         $data = $this->user->getAll();
         $headers = ["Nome", "Ultimo Acesso", "Cargo"];
@@ -32,20 +38,20 @@ class UsersController extends Controller
         return view('usuarios.listar', compact('data', 'headers', 'campos', 'routeEditar'));
     }
 
-    public function verUsuario(Request $request, $id)
+    protected function verUsuario(Request $request, $id)
     {
         $user = $this->user->where('id', $id)->first();
         $cargos = $this->cargosStaff->get();
         return view('usuarios.editar', compact('user', 'cargos'));
     }
 
-    public function verCriar(Request $request)
+    protected function verCriar(Request $request)
     {
         $cargos = $this->cargosStaff->get();
         return view('usuarios.criar', compact('cargos'));
     }
 
-    public function editar(EditarUser $request, $id)
+    protected function editar(EditarUser $request, $id)
     {
         $data = $request->validated();
         $update = $this->user->where('id', $id)->update($data);
@@ -65,4 +71,16 @@ class UsersController extends Controller
         if ($create) return redirect()->route('usuarios.listar');
         return redirect()->back();
     }
+
+    protected function verPontoStaff(Request $request)
+    {
+        $ponto = $this->usersPonto->findPontoAtual(auth()->user()->id);
+        return view('usuarios.pontos', compact('ponto'));
+    }
+
+    protected function baterPonto(Request $request) {
+        $this->usersPonto->baterPonto(auth()->user()->id);
+        return redirect()->route('usuarios.ver.bater.ponto');
+    }
+
 }

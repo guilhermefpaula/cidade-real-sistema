@@ -26,6 +26,8 @@ Route::get('/usuario/criar', [$usuarios, 'verCriar'])->name('usuarios.ver.criar'
 Route::get('/usuario/editar/{id}', [$usuarios, 'verUsuario'])->name('usuarios.ver.editar');
 Route::put('/usuario/editar/{id}', [$usuarios, 'editar'])->name('usuarios.editar');
 Route::post('/usuario/criar', [$usuarios, 'criar'])->name('usuarios.criar');
+Route::get('/usuario/ponto', [$usuarios, 'verPontoStaff'])->name('usuarios.ver.bater.ponto');
+Route::post('/usuario/ponto', [$usuarios, 'baterPonto'])->name('usuario.bater.ponto');
 
 Route::get('/teste',function(){
 return view('teste');
@@ -40,3 +42,5 @@ Route::get('/evento/remover/{id}', [$eventos, 'deletarEvento'])->name('eventos.r
 Route::get('/evento/editar/{id}', [$eventos, 'verEditar'])->name('eventos.ver.editar');
 Route::put('/evento/editar/{id}', [$eventos, 'editar'])->name('eventos.editar');
 Route::get('/evento/dados', [$eventos, 'buscaDados'])->name('eventos.buscar.dados.ajax');
+
+
