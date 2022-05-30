@@ -41,13 +41,14 @@ class UsersController extends Controller
     protected function verUsuario(Request $request, $id)
     {
         $user = $this->user->where('id', $id)->first();
-        $cargos = $this->cargosStaff->get();
+        $cargos = $this->cargosStaff->orderBy('cargo', 'asc')->get();
         return view('usuarios.editar', compact('user', 'cargos'));
     }
 
     protected function verCriar(Request $request)
     {
-        $cargos = $this->cargosStaff->get();
+        $cargos = $this->cargosStaff->orderBy('cargo', 'asc')->get();
+
         return view('usuarios.criar', compact('cargos'));
     }
 
