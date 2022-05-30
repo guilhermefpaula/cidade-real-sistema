@@ -67,8 +67,8 @@ class UsersPonto extends Model
         } else {
             return;
         }
-        $message = "Nome:" . $user->name .
-            "\nCargo: " . $cargo . "\nEntrada: " . date('H:i:s', strtotime($ponto->hora_entrada)) . "\nPausa: " . date('H:i:s', strtotime($ponto->hora_pausa)) . "\nRetorno: " . date('H:i:s', strtotime($ponto->hora_volta)) . "\nSaída: " . now()->format('H:i:s');
+        $message = "Nome: " . $user->name .
+            "\nCargo: " . $cargo . "\nEntrada: " . date('H:i', strtotime($ponto->hora_entrada)) . "\nPausa: " . date('H:i', strtotime($ponto->hora_pausa)) . "\nRetorno: " . date('H:i', strtotime($ponto->hora_volta)) . "\nSaída: " . now()->format('H:i');
 
         Http::post($url, [
             "content" => $message
