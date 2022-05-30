@@ -17,6 +17,7 @@ class HomeController extends Controller
      */
 
     protected $eventos;
+    protected $user;
 
     public function __construct(EventosModel $eventos, User $user)
     {
@@ -36,8 +37,9 @@ class HomeController extends Controller
         $eventosCount = $this->eventos->where('status', 1)->count();
         $eventosToday = $this->eventos->whereDate('created_at', Carbon::today())->count();
         $usuariosAtivos = $this->user->whereDate('ultimo_login',Carbon::today())->count();
+        $usuariosAtivosNow = $this->user->getAtivosAgora();
         $eventosDoMes = $this->eventos->getCountEventosDoMes();
-        $data = compact('eventosCount', 'usersCount', 'eventosToday', 'usuariosAtivos', 'eventosDoMes');
+        $data = compact('eventosCount', 'usersCount', 'eventosToday', 'usuariosAtivos', 'eventosDoMes', 'usuariosAtivosNow');
         return view('home', compact('data'));
     }
 }

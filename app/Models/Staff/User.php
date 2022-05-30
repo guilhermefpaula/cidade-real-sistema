@@ -53,13 +53,8 @@ class User extends Authenticatable
         return $this->select('users.id', 'name', 'ultimo_login', 'cargo')->leftJoin('users_cargos_staff', 'users_cargos_staff.id', '=', 'users.cargo_staff')->orderBy('name', 'asc')->get();
     }
 
-    public function getCreatedAtAttribute($date)
+    public function getAtivosAgora()
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');
-    }
-
-    public function getUpdatedAtAttribute($date)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');
+        return $this->join('users_pontos', 'users_pontos.user_id', 'users.id')->whereNull('hora_saida')->count();
     }
 }
