@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Usuarios;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\AdicionaUser;
 use App\Http\Requests\User\EditarUser;
-use App\Models\CargosStaff;
-use App\Models\User;
-use App\Models\UsersPonto;
+use App\Models\Staff\CargosStaff;
+use App\Models\Staff\User;
+use App\Models\Staff\UsersPonto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

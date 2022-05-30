@@ -7,7 +7,7 @@ use App\Http\Requests\Eventos\AdicionarEvento;
 use App\Http\Requests\Eventos\EditarEvento;
 use App\Models\Eventos\EventosModel;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Staff\User;
 use Illuminate\Support\Facades\Http;
 
 class EventosController extends Controller

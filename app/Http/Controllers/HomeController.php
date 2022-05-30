@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eventos\EventosModel;
-use App\Models\User;
+use App\Models\Staff\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

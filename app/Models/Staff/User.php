@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Staff;
 
 use Carbon\Carbon;
 use DateTimeInterface;
