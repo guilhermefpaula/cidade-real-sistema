@@ -76,12 +76,20 @@ class UsersController extends Controller
     protected function verPontoStaff(Request $request)
     {
         $ponto = $this->usersPonto->findPontoAtual(auth()->user()->id);
-        return view('usuarios.pontos', compact('ponto'));
+        return view('usuarios.bater_ponto', compact('ponto'));
     }
 
-    protected function baterPonto(Request $request) {
+    protected function baterPonto(Request $request)
+    {
         $this->usersPonto->baterPonto(auth()->user()->id);
         return redirect()->route('usuarios.ver.bater.ponto');
     }
 
+    protected function verPontos(Request $request)
+    {
+        $data = $this->usersPonto->getAll();
+        $headers = ["Nome", "Hora da Entrada", "Hora da Pausa", "Hora Do Retorno", "Hora da Saída"];
+        $campos = ["name", "hora_entrada", "hora_pausa", "hora_volta", "hora_saida"];
+        return view('gestao.pontos', compact('data', 'headers', 'campos'));
+    }
 }

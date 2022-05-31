@@ -57,7 +57,6 @@ class EventosController extends Controller
         return redirect()->route('eventos.listar');
     }
 
-
     public function deletarEvento(Request $request, $id)
     {
         $this->eventos->where('id', $id)->update(['status' => 0]);
@@ -81,8 +80,8 @@ class EventosController extends Controller
             if (empty($evento)) {
                 $data['finalizado_at'] = now();
                 $message = "EVENTO: " . $data['titulo'] . "
-                DIA: " . $data['proximo_evento'] . " 
-                LINK DO EVENTO: " . route('eventos.ver', $id);
+ DIA: " . $data['proximo_evento'] . " 
+ LINK DO EVENTO: " . route('eventos.ver', $id);
                 Http::post(env('DISCORD_EVENTOS_URL'), [
                     "content" => $message
                 ]);
@@ -94,7 +93,6 @@ class EventosController extends Controller
         }
         return redirect()->back();
     }
-
 
     private function frequenciasEvento()
     {

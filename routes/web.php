@@ -29,9 +29,6 @@ Route::post('/usuario/criar', [$usuarios, 'criar'])->name('usuarios.criar');
 Route::get('/usuario/ponto', [$usuarios, 'verPontoStaff'])->name('usuarios.ver.bater.ponto');
 Route::post('/usuario/ponto', [$usuarios, 'baterPonto'])->name('usuario.bater.ponto');
 
-Route::get('/teste',function(){
-return view('teste');
-});
 #eventos
 $eventos = App\Http\Controllers\Eventos\EventosController::class;
 Route::get('/eventos', [$eventos, 'listar'])->name('eventos.listar');
@@ -44,3 +41,4 @@ Route::put('/evento/editar/{id}', [$eventos, 'editar'])->name('eventos.editar');
 Route::get('/evento/dados', [$eventos, 'buscaDados'])->name('eventos.buscar.dados.ajax');
 
 
+Route::get('/pontos', [$usuarios, 'verPontos'])->name('ver.pontos');

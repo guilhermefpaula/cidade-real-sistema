@@ -134,6 +134,28 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="premio" class="col-md-4 col-form-label text-md-end">{{ __('Prêmio') }}</label>
+                            <div class="col-md-6">
+                                <textarea id="premio" rows="7" type="text" class="form-control @error('premio') is-invalid @enderror" name="premio" autocomplete="premio">{{ $data->premio }}</textarea>
+                                @error('premio')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="vencedor" class="col-md-4 col-form-label text-md-end">{{ __('Vencedor') }}</label>
+                            <div class="col-md-6">
+                                <input id="vencedor" rows="7" type="text" class="form-control @error('premio') is-invalid @enderror" name="vencedor" value="{{ $data->vencedor }}" autocomplete="vencedor">
+                                @error('vencedor')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="responsavel" class="col-md-4 col-form-label text-md-end">{{ __('Responsável') }}</label>
                             <div class="col-md-6">
                                 <select id="responsavel" type="text" class="form-control @error('responsavel') is-invalid @enderror" name="responsavel" required>

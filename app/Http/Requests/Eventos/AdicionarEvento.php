@@ -36,6 +36,8 @@ class AdicionarEvento extends FormRequest
             'proximo_evento' => ['nullable'],
             'tamanho' => ['nullable'],
             'regras' => ['nullable'],
+            'premio' => ['nullable'],
+            'vencedor' => ['nullable'],
         ];
     }
 }

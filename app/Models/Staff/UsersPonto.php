@@ -74,4 +74,10 @@ class UsersPonto extends Model
             "content" => $message
         ]);
     }
-}
+
+    public function getAll() {
+
+        
+        return $this->select('hora_entrada', 'hora_pausa', 'hora_volta', 'hora_saida', 'users.name')->join('users', 'users.id', '=', 'users_pontos.user_id')->orderBy('users_pontos.created_at', 'desc')->get();
+    }
+    }

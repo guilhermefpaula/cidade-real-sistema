@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelatoriosStaff extends Migration
+class CalculadoraPenal extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class RelatoriosStaff extends Migration
      */
     public function up()
     {
-        Schema::create('relatorios_staff', function (Blueprint $table) {
+        Schema::create('calculadora_penal', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('responsavel_id');
-            $table->string('nome', 64);
-            $table->string('id_player', 64);
-            $table->text('motivo');
-            $table->text('como_ajudou');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('motivo');
+            $table->string('tipo')->default('ADICIONA MESES');
+            $table->string('qnt_meses');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class RelatoriosStaff extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('calculadora_penal');
     }
 }
