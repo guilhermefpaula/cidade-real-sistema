@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2 m-2">
-                        <div  class="table-responsive p-0">
+                        <div class="table-responsive p-0">
                             <table id="table" class="table align-items-center table-bordered  justify-content-center mb-0">
                                 <thead>
                                     <tr>
@@ -52,7 +52,7 @@
                                                 VER
                                             </a>
                                             @endif
-                                            @if(!empty($routeRemover))
+                                            @if(!empty($routeRemover) && auth()->user()->is_admin == 1)
                                             <a class="btn btn-danger" href="{{ route($routeRemover, $item->id)}}">
                                                 REMOVER
                                             </a>

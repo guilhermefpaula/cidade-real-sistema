@@ -7,12 +7,12 @@
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3 d-flex justify-content-between align-items-center">PONTOS         
+                            <h6 class="text-white text-capitalize ps-3 d-flex justify-content-between align-items-center">PONTOS
                             </h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2 m-2">
-                        <div  class="table-responsive p-0">
+                        <div class="table-responsive p-0">
                             <table id="table" class="table align-items-center table-bordered justify-content-center mb-0">
                                 <thead>
                                     <tr>
@@ -36,13 +36,14 @@
                                         </td>
                                         @endforeach
                                         <td class="align-middle">
-                                            @if(!empty($routeRemover))
+                                            @if(!empty($routeRemover) && auth()->user()->is_admin == 1)
                                             <a class="btn btn-danger" href="{{ route($routeRemover, $item->id)}}">
                                                 REMOVER
                                             </a>
                                             @endif
                                         </td>
                                     </tr>
+
                                     @endforeach
                                 </tbody>
                             </table>

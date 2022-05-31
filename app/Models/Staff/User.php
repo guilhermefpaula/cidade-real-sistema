@@ -26,7 +26,8 @@ class User extends Authenticatable
         'id_jogo',
         'cargo_jogo',
         'ultimo_login',
-        'cargo_staff'
+        'cargo_staff',
+        'is_admin'
     ];
 
     /**
