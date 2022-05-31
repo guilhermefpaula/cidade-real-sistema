@@ -90,6 +90,13 @@ class UsersController extends Controller
         $data = $this->usersPonto->getAll();
         $headers = ["Nome", "Hora da Entrada", "Hora da Pausa", "Hora Do Retorno", "Hora da Saída"];
         $campos = ["name", "hora_entrada", "hora_pausa", "hora_volta", "hora_saida"];
-        return view('gestao.pontos', compact('data', 'headers', 'campos'));
+        $routeRemover = "usuarios.pontos.remover";
+        return view('gestao.pontos', compact('data', 'headers', 'campos', 'routeRemover'));
+    }
+
+    protected function removePonto(Request $request, $id)
+    {
+        $this->usersPonto->where('id',$id)->delete();
+        return redirect()->route('usuarios.pontos.listar');
     }
 }

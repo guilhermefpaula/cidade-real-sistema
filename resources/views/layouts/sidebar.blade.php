@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('ver.pontos')}}">
+                <a class="nav-link text-white" href="{{ route('usuarios.pontos.listar')}}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">people</i>
                     </div>

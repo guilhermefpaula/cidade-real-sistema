@@ -40,5 +40,5 @@ Route::get('/evento/editar/{id}', [$eventos, 'verEditar'])->name('eventos.ver.ed
 Route::put('/evento/editar/{id}', [$eventos, 'editar'])->name('eventos.editar');
 Route::get('/evento/dados', [$eventos, 'buscaDados'])->name('eventos.buscar.dados.ajax');
 
-
-Route::get('/pontos', [$usuarios, 'verPontos'])->name('ver.pontos');
+Route::get('/pontos', [$usuarios, 'verPontos'])->name('usuarios.pontos.listar');
+Route::get('/pontos/remover/{id}', [$usuarios, 'removePonto'])->name('usuarios.pontos.remover');
